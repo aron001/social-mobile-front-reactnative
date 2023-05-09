@@ -1,6 +1,6 @@
 export const FriendsProfileData = [
   {
-    name: "Ram_Charan",
+    name: "ashh",
     accountName: "Ram Charan",
     profileImage: require("../../storage/images/profile1.jpg"),
     posts: 56,
@@ -9,7 +9,7 @@ export const FriendsProfileData = [
     follow: false,
   },
   {
-    name: "The_Tom",
+    name: "eyob",
     accountName: "Tom",
     profileImage: require("../../storage/images/profile2.jpg"),
     posts: 24,
@@ -18,7 +18,7 @@ export const FriendsProfileData = [
     follow: false,
   },
   {
-    name: "live_long",
+    name: "hena",
     accountName: "Live Long",
     profileImage: require("../../storage/images/profile2.jpg"),
     posts: 21,
@@ -27,7 +27,7 @@ export const FriendsProfileData = [
     follow: false,
   },
   {
-    name: "the_real_hero",
+    name: "dani",
     accountName: "Ram Charan",
     profileImage: require("../../storage/images/post4.jpg"),
     posts: 123,
@@ -36,7 +36,7 @@ export const FriendsProfileData = [
     follow: false,
   },
   {
-    name: "the_jerry",
+    name: "asre",
     accountName: "The Jerry",
     profileImage: require("../../storage/images/post6.jpg"),
     posts: 56,

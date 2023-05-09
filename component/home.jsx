@@ -5,6 +5,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import Ionic from '@expo/vector-icons';
 import Post from "./post";
+import MyDrawer from "./drawer"
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -20,12 +21,11 @@ const Home = ({navigation}) => {
         paddingHorizontal: 15,
         alignItems: 'center',
       }}>
-        <TouchableOpacity
-                    onPress={() => navigation.navigate('Createpost')}
+       <TouchableOpacity
+                    onPress={() =>
+                      navigation.push(MyDrawer)}
                    
-                >
-      <FontAwesome name="plus-square-o" style={{fontSize: 24}} />
-      </TouchableOpacity>
+                ><Feather name="menu" style={{fontSize: 24}} /></TouchableOpacity>
       <Text
         style={{
            
@@ -34,11 +34,13 @@ const Home = ({navigation}) => {
         }}>
         Bdu App
       </Text>
-      <TouchableOpacity
-                    onPress={() => navigation.navigate('MyDrawer')}
-                   
-                ><Feather name="navigation" style={{fontSize: 24}} /></TouchableOpacity>
       
+      <TouchableOpacity
+                    onPress={() => navigation.navigate('Createpost')}
+                   
+                >
+      <FontAwesome name="plus-square-o" style={{fontSize: 24}} />
+      </TouchableOpacity>
     </View>
     <ScrollView>
         

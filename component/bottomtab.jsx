@@ -13,6 +13,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import Timelinepost from './timlinepost';
 import Home from './home';
 import Search from './search';
+import Profilescreen from './profilescreen';
 const Tab = createMaterialBottomTabNavigator();
 //const Drawer = createDrawerNavigator();
 const Bottomtab = () => {
@@ -44,10 +45,10 @@ return (
             <FontAwesome name='search' color="#05375a" size={20}/>
           ),
         }} />
-        <Tab.Screen name="timeline post" component={Timelinepost} options={{
-          tabBarLabel: 'timeline',
+        <Tab.Screen name="Profilescreen" component={Profilescreen} options={{
+          tabBarLabel: 'profile',
           tabBarIcon: ({ color }) => (
-            <MaterialCommunityIcons name="timeline" color={color} size={26} />
+             <FontAwesome name='user' color="#05375a" size={20}/>
           ),
         }} />
     </Tab.Navigator>
