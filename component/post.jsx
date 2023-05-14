@@ -20,6 +20,13 @@ const Post = () => {
             postImage: require('../storage/images/post5.jpg'),
             likes: 765,
             isLiked: false,
+          },
+          {
+            postTitle: 'visit bahirdar',
+            postPersonImage: require('../storage/images/profile2.jpg'),
+            postImage: require('../storage/images/post5.jpg'),
+            likes: 765,
+            isLiked: false,
           }
     ]
         

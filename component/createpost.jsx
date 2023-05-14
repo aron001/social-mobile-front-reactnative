@@ -27,13 +27,19 @@ export default function Createpost() {
   return (
     <View style={{ flex: 1,marginTop:'13%' }}>
     <View >
-      <TouchableOpacity onPress={pickImage}><Text style={{ color:"green", marginTop:'1%',fontWeight:'bold',fontSize:16}}> Post from gallary</Text></TouchableOpacity> 
+      <TouchableOpacity onPress={pickImage}><Text style={{ color:"green", marginTop:'1%',fontWeight:'bold',fontSize:16}}> attach an image for the quation</Text></TouchableOpacity> 
       {image && <Image source={{ uri: image }} style={{ width: '100%', height: 400 }} />}
     </View>
     <TouchableOpacity onPress={uploadImage}>
                   <Text style={{ color:"green", marginTop:'1%',fontWeight:'bold',fontSize:16}}>Share Post</Text>
                 </TouchableOpacity>
+                <View>
+                <TouchableOpacity onPress={uploadImage}>
+                  <Text style={{ color:"green", marginTop:'1%',fontWeight:'bold',fontSize:16}}>Share Post</Text>
+                </TouchableOpacity></View>
+                
     </View>
+
   );
 }
 

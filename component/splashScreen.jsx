@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { 
     View, 
     Text, 
@@ -12,7 +12,22 @@ import * as Animatable from 'react-native-animatable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 import SignInScreen from './signinscreen';
-const SplashScreen = ({navigation}) => {
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const SplashScreen = (props) => {
+    
+    const detectLogin= async ()=>{
+        const token = await AsyncStorage.getItem('token')
+            if(token){
+                  props.navigation.replace("Bottomtab")
+            }else{
+                props.navigation.replace("SignInScreen")
+            }
+      }
+      useEffect(()=>{
+        detectLogin()
+       },[])
+    
     return (
 <View style={styles.container}>
     <View style={styles.header}>

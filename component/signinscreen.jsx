@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { 
     View, 
     Text, 
@@ -8,7 +8,8 @@ import {
     StatusBar,
     Platform,
     TextInput,
-    Image
+    Image,
+    Alert
 } from 'react-native';
 import * as Animatable from 'react-native-animatable';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -16,48 +17,35 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { FontAwesome } from '@expo/vector-icons';
 import { Feather } from '@expo/vector-icons';
 import { color } from 'react-native-reanimated';
-const SignInScreen = ({navigation}) => {
-
-    const [data, setData] = React.useState({
-        email: '',
-        password: '',
-        check_textInputChange: false,
-        secureTextEntry: true,
-        
-    });
-    const textInputChange = (val) => {
-        if( val.trim().length >= 4 ) {
-            setData({
-                ...data,
-                email: val,
-                check_textInputChange: true,
-                
-            });
-        } else {
-            setData({
-                ...data,
-                username: val,
-                check_textInputChange: false,
-                isValidUser: false
-            });
-        }
-    }
-
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import axios from 'axios';
+const SignInScreen = (props) => {
+    const [email,setEmail] = useState('');
+    const [password,setPassword]=useState('')
     
-    const handlePasswordChange = (val) => {
-        
-            setData({
-                ...data,
-                password: val,
-               
-            });
-        } 
-        const updateSecureTextEntry = () => {
-            setData({
-                ...data,
-                secureTextEntry: !data.secureTextEntry
-            });
-        }
+    const sendCred = async (props)=>{
+        fetch("http://10.161.148.38:3000/api/auth/login",{
+          method:"POST",
+          headers: {
+           'Content-Type': 'application/json'
+         },
+         body:JSON.stringify({
+           "email":email,
+           "password":password
+         })
+        })
+        .then(res=>res.json())
+        .then(async (data)=>{
+               try {
+                 await AsyncStorage.setItem('token',data.token)
+                 props.navigation.replace("Bottomtab")
+               } catch (e) {
+                 console.log("error hai",e)
+                  
+               }
+        })
+     }
+    
   return (
     <View style={styles.container}>
         <StatusBar backgroundColor="#009387" barStyle="light
@@ -76,8 +64,10 @@ const SignInScreen = ({navigation}) => {
     <TextInput placeholder='your email'
     style={styles.textInput}
     autoCapitalize='none'
-    onChangeText={(val)=> textInputChange(val)}/>
-    {data.check_textInputChange ?
+    value={email}
+    onChangeText={(text)=>setEmail(text)}
+    />
+    
     <Animatable.View
         animation="bounceIn">
     <Feather
@@ -86,7 +76,7 @@ const SignInScreen = ({navigation}) => {
     size={20}
 
     /></Animatable.View>  
-    : null}
+    
         </View>
         
         
@@ -96,35 +86,37 @@ const SignInScreen = ({navigation}) => {
             
     <FontAwesome name='lock' color="#05375a" size={20}/>
     <TextInput placeholder='enter your password '
-    secureTextEntry={data.secureTextEntry ? true : false}
+    
     style={styles.textInput}
     autoCapitalize='none'
-    onChangeText={(val)=> handlePasswordChange(val)}/>
+    value={password}
+    onChangeText={(text)=>{setPassword(text)}}/>
     <TouchableOpacity  
-    onPress={updateSecureTextEntry}>
-    {data.secureTextEntry ?
+    >
+    
     <Feather
     name='eye-off'
     color='grey'
     size={20}
 
     />
-:
+
 <Feather
     name='eye'
     color='grey'
     size={20}
 
-    />}</TouchableOpacity>
+    /></TouchableOpacity>
         </View>
         <View style={styles.button}>
+            <TouchableOpacity onPress={() => sendCred(props)}>
             <LinearGradient
             colors={['#08d4c4','#01ab9d']}
             style={styles.signIn}>
                 <Text style={styles.textSign}>Sign In</Text>
-            </LinearGradient>
+            </LinearGradient></TouchableOpacity>
             <TouchableOpacity
-                    onPress={() => navigation.navigate('SignUpScreen')}
+                    onPress={()=>props.navigation.replace("SignUpScreen")}
                     style={[styles.signIn, {
                         borderColor: '#009387',
                         borderWidth: 1,

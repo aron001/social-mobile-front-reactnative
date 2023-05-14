@@ -51,8 +51,8 @@ export default function Profilescreen() {
                 </View>
 
                 <View style={styles.infoContainer}>
-                    <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>Julie</Text>
-                    <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>Photographer</Text>
+                    <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>ash</Text>
+                    <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>am sexy and i know it</Text>
                 </View>
 
                 <View style={styles.statsContainer}>
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
       backgroundColor: "#FFF"
   },
   text: {
-      fontFamily: "HelveticaNeue",
+      
       color: "#52575D"
   },
   image: {

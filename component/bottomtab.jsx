@@ -2,7 +2,7 @@ import React from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
-import Settingscreen from './settingscreen';
+
 import Quation from './quation';
 import { FontAwesome } from '@expo/vector-icons';
 import CreatePost from './createpost';
@@ -10,10 +10,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Timelinepost from './timlinepost';
+import Displayquation from './displayquation';
 import Home from './home';
 import Search from './search';
+import TryMsgScreen from './timlinepost'
 import Profilescreen from './profilescreen';
+
 const Tab = createMaterialBottomTabNavigator();
 //const Drawer = createDrawerNavigator();
 const Bottomtab = () => {
