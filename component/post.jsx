@@ -1,42 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {View, Text, Image, TouchableOpacity, TextInput} from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
+import client from '../api/client';
 
 const Post = () => {
-    const postInfo = [
-        {
-          postTitle: 'visit sheger',
-          postPersonImage: require('../storage/images/userProfile.png'),
-          postImage: require('../storage/images/post4.jpg'),
-          likes: 765,
-          isLiked: false,
-        },
-        {
-            postTitle: 'visit bahirdar',
-            postPersonImage: require('../storage/images/profile2.jpg'),
-            postImage: require('../storage/images/post5.jpg'),
-            likes: 765,
-            isLiked: false,
-          },
-          {
-            postTitle: 'visit bahirdar',
-            postPersonImage: require('../storage/images/profile2.jpg'),
-            postImage: require('../storage/images/post5.jpg'),
-            likes: 765,
-            isLiked: false,
-          }
-    ]
+  const [posts, setPosts] = useState();
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const res = await client.get(`/api/posts/fetchallPosts`);
+      const data = await res.json();
+      setPosts(data);
+    };
+    fetchPosts();
+  }, []);
+
+
+
+   
         
-  return (
-    <View>
-      {postInfo.map((data, index) => {
-        const [like, setLike] = useState(data.isLiked);
+ 
+      {posts?.map((post) => {
+        
         return (
           <View
-            key={index}
+            key={post._id}
             style={{
               paddingBottom: 10,
               borderBottomColor: 'gray',
@@ -51,12 +42,12 @@ const Post = () => {
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
-                  source={data.postPersonImage}
+                  source={post.img}
                   style={{width: 40, height: 40, borderRadius: 100}}
                 />
                 <View style={{paddingLeft: 5}}>
                   <Text style={{fontSize: 15, fontWeight: 'bold'}}>
-                    {data.postTitle}
+                    {post.desc}
                   </Text>
                 </View>
               </View>
@@ -69,7 +60,7 @@ const Post = () => {
                 alignItems: 'center',
               }}>
               <Image
-                source={data.postImage}
+                source={{uri: post.img}}
                 style={{width: '100%', height: 400}}
               />
             </View>
@@ -82,13 +73,13 @@ const Post = () => {
                 paddingVertical: 15,
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity onPress={() => setLike(!like)}>
+                <TouchableOpacity >
                   <AntDesign
-                    name={like ? 'heart' : 'hearto'}
+                    
                     style={{
                       paddingRight: 10,
                       fontSize: 20,
-                      color: like ? 'red' : 'black',
+                     
                     }}
                   />
                 </TouchableOpacity>
@@ -101,8 +92,7 @@ const Post = () => {
             </View>
             <View style={{paddingHorizontal: 15}}>
               <Text>
-                Liked by {like ? 'you and' : ''}{' '}
-                {like ? data.likes + 1 : data.likes} others
+                
               </Text>
               
               
@@ -110,8 +100,7 @@ const Post = () => {
           </View>
         );
       })}
-    </View>
-  );
+    
 };
 
 export default Post;

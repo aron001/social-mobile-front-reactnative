@@ -6,6 +6,7 @@ import { Feather } from '@expo/vector-icons';
 import Ionic from '@expo/vector-icons';
 import Post from "./post";
 import MyDrawer from "./drawer"
+
 const Home = ({navigation}) => {
   return (
     <View style={styles.container}>
@@ -36,7 +37,7 @@ const Home = ({navigation}) => {
       </Text>
       
       <TouchableOpacity
-                    onPress={() => navigation.navigate('Createpost')}
+                    onPress={() => navigation.navigate('createpost')}
                    
                 >
       <FontAwesome name="plus-square-o" style={{fontSize: 24}} />
