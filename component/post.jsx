@@ -5,29 +5,32 @@ import AntDesign from 'react-native-vector-icons/AntDesign';
 import Ionic from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import client from '../api/client';
-
+import axios from 'axios';
 const Post = () => {
-  const [posts, setPosts] = useState();
-
+  
+  const [posts,setPosts]=useState([])
+  
+  
   useEffect(() => {
-    const fetchPosts = async () => {
-      const res = await client.get(`/api/posts/fetchallPosts`);
-      const data = await res.json();
-      setPosts(data);
-    };
-    fetchPosts();
-  }, []);
+  const getData=()=>{
+    fetch('http://10.161.148.38:3000/api/posts//fetchallPosts')
+    .then(response=>response.json())
+    .then(data=>setPosts(data));
+  }
+  getData();
+}, []);
 
 
-
-   
-        
- 
-      {posts?.map((post) => {
-        
         return (
+
+          /*<View style={{marginTop:300}}>
+          {posts.map(post=><Text key={post.id}>{post.desc}</Text>)}
+        </View>*/
+        <View>
+      
+      {posts.map(post=>
           <View
-            key={post._id}
+            key={post.id}
             style={{
               paddingBottom: 10,
               borderBottomColor: 'gray',
@@ -42,7 +45,7 @@ const Post = () => {
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
                 <Image
-                  source={post.img}
+                  source={require('../storage/images/profile2.jpg')}
                   style={{width: 40, height: 40, borderRadius: 100}}
                 />
                 <View style={{paddingLeft: 5}}>
@@ -51,7 +54,7 @@ const Post = () => {
                   </Text>
                 </View>
               </View>
-              <Feather name="more-vertical" style={{fontSize: 20}} />
+             
             </View>
             <View
               style={{
@@ -60,7 +63,7 @@ const Post = () => {
                 alignItems: 'center',
               }}>
               <Image
-                source={{uri: post.img}}
+                source={require('../storage/images/post4.jpg')}
                 style={{width: '100%', height: 400}}
               />
             </View>
@@ -73,34 +76,37 @@ const Post = () => {
                 paddingVertical: 15,
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <TouchableOpacity >
+                <TouchableOpacity onPress={() => setLike(!like)}>
                   <AntDesign
-                    
+                    name= 'heart' 
                     style={{
                       paddingRight: 10,
                       fontSize: 20,
-                     
+                      color: 'black' 
                     }}
                   />
                 </TouchableOpacity>
-                
+         
                 <TouchableOpacity>
                   <Feather name="navigation" style={{fontSize: 20}} />
                 </TouchableOpacity>
               </View>
-              
+          
             </View>
             <View style={{paddingHorizontal: 15}}>
               <Text>
-                
+                Liked by  others
               </Text>
-              
-              
+             
+         
             </View>
           </View>
-        );
-      })}
+     )}
+    </View>
     
+        );
+
+     
 };
 
 export default Post;

@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { StyleSheet, View, Text,ScrollView,TouchableOpacity } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { FontAwesome } from '@expo/vector-icons';
@@ -6,8 +6,19 @@ import { Feather } from '@expo/vector-icons';
 import Ionic from '@expo/vector-icons';
 import Post from "./post";
 import MyDrawer from "./drawer"
+import client from '../api/client';
+import { axios } from "axios";
 
 const Home = ({navigation}) => {
+
+
+  const [posts, setPosts] = useState([]);
+
+  
+ 
+    
+
+
   return (
     <View style={styles.container}>
     <StatusBar
@@ -44,9 +55,9 @@ const Home = ({navigation}) => {
       </TouchableOpacity>
     </View>
     <ScrollView>
-        
+   
         <Post />
-        
+    
       </ScrollView>
     </View>
 
