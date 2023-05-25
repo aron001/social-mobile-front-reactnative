@@ -1,5 +1,5 @@
 
-import React, {useState} from 'react';
+import React, {useState,useEffect} from 'react';
 import {View, Text, ScrollView, TouchableOpacity, Image,TextInput} from 'react-native';
 import { FriendsProfileData } from './database/database';
 import AntDesign from 'react-native-vector-icons/AntDesign';
@@ -8,6 +8,19 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 
 const Search = () => {
   const navigation = useNavigation();
+
+ const [posts,setPosts]=useState([])
+  
+  
+  useEffect(() => {
+  const getData=()=>{
+    fetch('http://10.161.148.38:3000/api/users/alluser')
+    .then(response=>response.json())
+    .then(data=>setPosts(data));
+  }
+  getData();
+}, []);
+
   return (
     <View style=
     {{
@@ -64,13 +77,15 @@ const Search = () => {
         <Text style={{fontWeight: 'bold', paddingVertical: 10}}>
           Suggestions for you
         </Text>
-        {FriendsProfileData.slice(2.13).map((data, index) => {
-          const [follow, setFollow] = useState(data.follow);
-          const [close, setClose] = useState(false);
-          return (
+        <View>
+        {posts.map(post=>
+        
+          //const [follow, setFollow] = useState(post.follow);
+          //const [close, setClose] = useState(false);
+      
 
-            <View key={index}>
-              {close ? null : (
+            <View key={post._id}>
+            
                 <View
                   style={{
                     paddingVertical: 10,
@@ -84,12 +99,12 @@ const Search = () => {
                     <TouchableOpacity
                       onPress={() =>
                         navigation.push('FriendProfile', {
-                          name: data.name,
-                          profileImage: data.profileImage,
-                          follow: follow,
-                          post: data.posts,
-                          followers: data.followers,
-                          following: data.following,
+                          name: post.username,
+                          profileImage: post.profilepicture,
+                          //follow: follow,
+                          post: post.posts,
+                          followers: post.followers,
+                          following: post.following,
                         })
                       }
                       style={{
@@ -98,7 +113,8 @@ const Search = () => {
                         maxWidth: '64%',
                       }}>
                       <Image
-                        source={data.profileImage}
+                       source={require('../storage/images/profile1.jpg')}
+                       
                         style={{
                           width: 45,
                           height: 45,
@@ -108,10 +124,10 @@ const Search = () => {
                       />
                       <View style={{width: '100%'}}>
                         <Text style={{fontSize: 14, fontWeight: 'bold'}}>
-                          {data.name}
+                          {post.username}
                         </Text>
                         <Text style={{fontSize: 12, opacity: 0.5}}>
-                          {data.accountName}
+                          {post.username}
                         </Text>
                         <Text style={{fontSize: 12, opacity: 0.5}}>
                           Sugggested for you
@@ -120,60 +136,37 @@ const Search = () => {
                     </TouchableOpacity>
                   </View>
                   <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                    {follow ? (
+                  
                       <TouchableOpacity
-                        onPress={() => setFollow(!follow)}
+                        //onPress={() => setFollow(!follow)}
                         style={{
-                          width: follow ? 90 : 68,
+                          width:  68,
                         }}>
                         <View
                           style={{
                             width: '100%',
                             height: 30,
                             borderRadius: 5,
-                            backgroundColor: follow ? null : '#3493D9',
-                            borderWidth: follow ? 1 : 0,
+                            backgroundColor:  '#3493D9',
+                            borderWidth:  0,
                             borderColor: '#DEDEDE',
                             justifyContent: 'center',
                             alignItems: 'center',
                           }}>
-                          <Text style={{color: follow ? 'black' : 'white'}}>
-                            {follow ? 'following' : 'follow'}
+                          <Text style={{color:  'black'}}>
+                            follow
                           </Text>
                         </View>
                       </TouchableOpacity>
-                    ) : (
-                      <>
-                        <TouchableOpacity
-                          onPress={() => setFollow(!follow)}
-                          style={{
-                            width: follow ? 90 : 68,
-                          }}>
-                          <View
-                            style={{
-                              width: '100%',
-                              height: 30,
-                              borderRadius: 5,
-                              backgroundColor: follow ? null : '#3493D9',
-                              borderWidth: follow ? 1 : 0,
-                              borderColor: '#DEDEDE',
-                              justifyContent: 'center',
-                              alignItems: 'center',
-                            }}>
-                            <Text style={{color: follow ? 'black' : 'white'}}>
-                              {follow ? 'following' : 'follow'}
-                            </Text>
-                          </View>
-                        </TouchableOpacity>
-                        
-                      </>
-                    )}
+                   
+                    
                   </View>
                 </View>
-              )}
+             
             </View>
-          );
-        })}
+         
+        )}
+        </View>
         <View style={{padding: 20}}>
           <Text style={{color: '#3493D9'}}>See all Suggetions</Text>
         </View>

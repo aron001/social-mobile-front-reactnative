@@ -6,99 +6,11 @@ import * as ImagePicker from 'expo-image-picker';
 import { useState, useEffect } from 'react';
 
 export default function Profilescreen() {
-  const [image, setImage] = useState(null);
-const [picture,setPicture] = useState(getDetails("picture"))
- const [images, setImages] = useState(null);
-const [profileImage, setProfileImage] = useState(null);
-
-
-const pickImage = async () => {
-    
-    const {granted} =  await Permissions.askAsync(Permissions.CAMERA_ROLL)
-    if(granted){
-         let data =  await ImagePicker.launchImageLibraryAsync({
-              mediaTypes:ImagePicker.MediaTypeOptions.Images,
-              allowsEditing:true,
-              aspect:[1,1],
-              quality:0.5
-          })
-          if(!data.canceled){
-              let newfile = { 
-                uri:data.uri,
-                type:`test/${data.uri.split(".")[1]}`,
-                name:`test.${data.uri.split(".")[1]}` 
-                
-            }
-              handleUpload(newfile)
-          }
-    }else{
-       Alert.alert("you need to give up permission to work")
-    }
- };
-
-
- const handleUpload = (image)=>{
-    const data = new FormData()
-    data.append('file',image)
-    data.append('upload_preset','employeeApp')
-    data.append("cloud_name","dvflguwig")
-
-    fetch("https://api.cloudinary.com/v1_1/dvflguwig/image/upload",{
-        method:"post",
-        body:data
-    }).then(res=>res.json()).
-    then(data=>{
-        //setPicture(data.url)
-       console.log(data)
-    }).catch(err=>{
-        Alert.alert("error while uploading")
-    })
-}
+ const [posts,setPosts]=useState([])
   
-//cretepost
 
+ 
 
-const pickanImage = async () => {
-  // No permissions request is necessary for launching the image library
-  
-  const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
-
-  if (status !== 'granted') {
-    alert('Sorry, we need camera roll permissions to make this work!');
-  }
-
-  if (status === 'granted') {
-    const response = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      allowsEditing: true,
-    });
-
-    if (!response.canceled) {
-      setProfileImage(response.assets[0].uri);
-    }
-  }
-};
-
-const uploadProfileImage = async () => {
-  const formData = new FormData();
-  formData.append('photo', {
-    name: new Date() + '_profile',
-    uri: profileImage,
-    type: 'image/jpg',
-  });
-
-  try {
-    const res = await client.post('/api/posts', formData, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'multipart/form-data',
-        authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0NjA4OTkxNDY4NjZhZGY3NmJlNTgxZSIsImlhdCI6MTY4NDQ4NTk1MCwiZXhwIjoxNjg0NzQ1MTUwfQ.P-ZxYBY_4qx2ir0c6kZIDruqlFEupOOO_UR1R3rFNCE`,
-       
-      },
-    });}catch (error) {
-      console.log(error.message);
-    }
-}
 
     return (
         <SafeAreaView style={styles.container}>
@@ -117,9 +29,9 @@ const uploadProfileImage = async () => {
                     </View>
                     <View style={styles.active}></View>
                     <View style={styles.add}>
-                      <TouchableOpacity onPress={ pickImage}>
+                      <TouchableOpacity >
                         <Ionicons name="ios-add" size={48} color="#DFD8C8" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons>
-                        {image && <Image source={{ uri: image }} style={styles.image}/>}
+                        <Image source={{ }} style={styles.image}/>
                     </TouchableOpacity></View>
                 </View>
 

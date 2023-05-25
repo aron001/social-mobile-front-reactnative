@@ -13,7 +13,7 @@ const Post = () => {
   
   useEffect(() => {
   const getData=()=>{
-    fetch('http://10.161.148.38:3000/api/posts//fetchallPosts')
+    fetch('http://10.161.148.38:3000/api/posts/fetchallPosts')
     .then(response=>response.json())
     .then(data=>setPosts(data));
   }
