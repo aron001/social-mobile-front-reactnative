@@ -9,6 +9,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Bottomtab from "./component/bottomtab";
 import Createpost from "./component/createpost";
+import Otherprofile from "./component/otherprofile";
 const Stack = createStackNavigator();
 
 const App = ({ navigation }) => {
@@ -35,6 +36,7 @@ const App = ({ navigation }) => {
         <Stack.Screen name="RootStackScreen" component={RootStackScreen} />
         <Stack.Screen name="Bottomtab" component={Bottomtab} />
         <Stack.Screen name="createpost" component={Createpost} />
+        <Stack.Screen name="OtherProfileScreen" component={Otherprofile} />
       </Stack.Navigator>
     </NavigationContainer>
 

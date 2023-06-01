@@ -8,71 +8,19 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { decode as atob } from 'base-64';
 import axios from "axios";
 
-export default function Profilescreen(props) {
-
-    const [data, setData] = useState([]);
-
+export default function Otherprofile({ route }) {
+    const {post}=route.params;
+    const {user}=post.user;
+    const [data,setDatas]=useState([])
     useEffect(() => {
-      const getData = async () => {
-        try {
-          // Retrieve the token from AsyncStorage
-          const token = await AsyncStorage.getItem('token');
-  
-          // Set the Authorization header to Bearer <token>
-          const headers = {
-            Authorization: `Bearer ${token}`,
-            'Content-Type': 'application/json',
-          };
-  
-          // Make the GET request with the headers
-          const response = await axios.get('http://10.161.148.38:3000/api/users/me', { headers });
-  
-          setData(response.data);
-        } catch (e) {
-          console.log(e);
+        const getData=()=>{
+          fetch('http://10.161.148.38:3000/api/users/getuserbyid/'+ post.user)
+          .then(response=>response.json())
+          .then(data=>setDatas(data));
         }
-      };
-  
-      getData();
-    }, []);
-  
-
-
- const postData = async () => {
-    try {
-      // Retrieve the token from AsyncStorage
-      const token = await AsyncStorage.getItem('token');
-  
-      // Set the Authorization header to Bearer <token>
-      const headers = {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      };
-  
-      // Make the POST request with the headers and data
-      const response = await axios.get('http://10.161.148.38:3000/api/users/me',{ headers });
-  
-    setData(response)
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
-
-
-
-  const deleteToken = async () => {
-    try {
-      await AsyncStorage.removeItem('token');
-      console.log('Token deleted successfully');
-      props.navigation.replace("RootStackScreen")
-    } catch (e) {
-      console.log(e);
-    }
-  };
- 
-
-
+        getData();
+      }, []);
+      
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView showsVerticalScrollIndicator={false}>
@@ -85,20 +33,13 @@ export default function Profilescreen(props) {
                     <View style={styles.profileImage}>
                         <Image source={require("../storage/images/userProfile.png")} style={styles.image} resizeMode="center"></Image>
                     </View>
-                    <View style={styles.dm}>
-                        <MaterialIcons name="chat" size={18} color="#DFD8C8"></MaterialIcons>
-                    </View>
-                    <View style={styles.active}></View>
-                    <View style={styles.add}>
-                      <TouchableOpacity >
-                        <Ionicons name="ios-add" size={48} color="#DFD8C8" style={{ marginTop: 6, marginLeft: 2 }}></Ionicons>
-                        <Image source={{ }} style={styles.image}/>
-                    </TouchableOpacity></View>
+                  
+                
                 </View>
 
                 <View style={styles.infoContainer}>
                     <Text style={[styles.text, { fontWeight: "200", fontSize: 36 }]}>{data.username}</Text>
-                    <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>since  {data.createdAt}</Text>
+                    <Text style={[styles.text, { color: "#AEB5BC", fontSize: 14 }]}>since  2022</Text>
                 </View>
 
                 <View style={styles.statsContainer}>
@@ -128,10 +69,11 @@ export default function Profilescreen(props) {
                             <Image source={require("../storage/images/post6.jpg")} style={styles.image} resizeMode="cover"></Image>
                         </View>
                     </ScrollView>
-                    <TouchableOpacity onPress={deleteToken}>
-                    <Text style={{marginLeft:'45%' ,marginTop:'10%',color:'red'}}>logout</Text></TouchableOpacity>
                     
-               
+                    
+               <TouchableOpacity>
+                <Text>p</Text>
+               </TouchableOpacity>
                 </View>
                 
            

@@ -6,10 +6,11 @@ import Ionic from 'react-native-vector-icons/Ionicons';
 import Entypo from 'react-native-vector-icons/Entypo';
 import client from '../api/client';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
 const Post = () => {
   
   const [posts,setPosts]=useState([])
-  
+  const navigation = useNavigation();
   
   useEffect(() => {
   const getData=()=>{
@@ -21,6 +22,14 @@ const Post = () => {
 }, []);
 
 
+
+
+
+ 
+const handlePress = (post) => {
+  navigation.navigate('OtherProfileScreen', { post });
+};
+
         return (
 
           /*<View style={{marginTop:300}}>
@@ -30,7 +39,7 @@ const Post = () => {
       
       {posts.map(post=>
           <View
-            key={post.id}
+            key={post._id}
             style={{
               paddingBottom: 10,
               borderBottomColor: 'gray',
@@ -44,10 +53,15 @@ const Post = () => {
                 padding: 15,
               }}>
               <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                <Image
+
+              <TouchableOpacity key={post._id} onPress={() => handlePress(post)}>
+              <Image
                   source={require('../storage/images/profile2.jpg')}
                   style={{width: 40, height: 40, borderRadius: 100}}
                 />
+           </TouchableOpacity>
+
+                
                 <View style={{paddingLeft: 5}}>
                   <Text style={{fontSize: 15, fontWeight: 'bold'}}>
                     {post.desc}
