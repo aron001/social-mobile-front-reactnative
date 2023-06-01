@@ -7,6 +7,8 @@ import Entypo from 'react-native-vector-icons/Entypo';
 import client from '../api/client';
 import axios from 'axios';
 import { useNavigation } from '@react-navigation/native';
+
+const PF='http://10.161.148.38:3000/'
 const Post = () => {
   
   const [posts,setPosts]=useState([])
@@ -56,7 +58,7 @@ const handlePress = (post) => {
 
               <TouchableOpacity key={post._id} onPress={() => handlePress(post)}>
               <Image
-                  source={require('../storage/images/profile2.jpg')}
+                source={require('../storage/images/post4.jpg')}
                   style={{width: 40, height: 40, borderRadius: 100}}
                 />
            </TouchableOpacity>
@@ -77,7 +79,8 @@ const handlePress = (post) => {
                 alignItems: 'center',
               }}>
               <Image
-                source={require('../storage/images/post4.jpg')}
+               
+                source={{ uri: PF +post.img}}
                 style={{width: '100%', height: 400}}
               />
             </View>
